@@ -1,0 +1,14 @@
+
+<%= form_for @changeset, Routes.topic_path(@conn, :create), fn f -> %>
+    <div class="form-group">
+        <%= text_input f, :title, placeholder: "Title", class: "form-control" %>
+        <%= error_tag f, :title %>
+    </div>
+
+<% end %>
+
+<%= submit "Save Topic", class: "btn btn-primary" %>
+
+
+
+<%# ele coloca o % para pode escrever qualquer código em elixir aqui neste arquivo %>
