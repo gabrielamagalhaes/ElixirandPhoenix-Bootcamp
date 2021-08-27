@@ -56,7 +56,7 @@ defmodule DiscussWeb.TopicController do
         |> redirect(to: topic_path(conn, :index))
         #  o redirect vai redicirecionar para a pag inicial, após a atualização
 
-        {:error, changeser} ->
+        {:error, changeset} ->
           render conn, "edit.html", changeset: changeset, topic: old_topic
     end
   end
