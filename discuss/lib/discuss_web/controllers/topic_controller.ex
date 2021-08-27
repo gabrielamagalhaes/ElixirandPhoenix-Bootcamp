@@ -60,4 +60,15 @@ defmodule DiscussWeb.TopicController do
           render conn, "edit.html", changeset: changeset, topic: old_topic
     end
   end
+
+
+  def delete(conn, %{"id" => topic_id}) do
+    Repo.get!(Topic, topic_id) |> Repo.delete!
+    # o exclamação significa que irá mostrar um erro na tela, por ex. no caso do get, ele vai pegar um id
+    # mas caso o id não exista, ele mostrara esse erro, enfatizando que id solicitado não foi encontrado
+
+    conn
+    |> puth_flash(:info, "Topic Deleted")
+    |> redirect(to: topic_path(conn, :index))
+  end
 end
