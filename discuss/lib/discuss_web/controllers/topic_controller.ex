@@ -42,4 +42,22 @@ defmodule DiscussWeb.TopicController do
 
     render conn, "edit.html", changeset: changeset, topic: topic
   end
+
+  def update(conn, %{"id" => topic_id, "topic" => topic}) do
+    # old_topic pq ele ta pegando o tópico já e existente
+    old_topic = Repo.get(Topic, topic_id)
+    changeset = Repo.get(Topic, topic_id) |> Topic.changeset(topic)
+
+    # o changeset irá identificar o id que será atualizado
+    case Repo.update(changeset) do
+      {:ok, _topic} ->
+        conn
+        |> put_flash(:info, "Topic Updated")
+        |> redirect(to: topic_path(conn, :index))
+        #  o redirect vai redicirecionar para a pag inicial, após a atualização
+
+        {:error, changeser} ->
+          render conn, "edit.html", changeset: changeset, topic: old_topic
+    end
+  end
 end
