@@ -53,7 +53,7 @@ defmodule DiscussWeb.TopicController do
       {:ok, _topic} ->
         conn
         |> put_flash(:info, "Topic Updated")
-        |> redirect(to: topic_path(conn, :index))
+        # |> redirect(to: topic_path(conn, :index))
         #  o redirect vai redicirecionar para a pag inicial, após a atualização
 
         {:error, changeset} ->
@@ -68,7 +68,7 @@ defmodule DiscussWeb.TopicController do
     # mas caso o id não exista, ele mostrara esse erro, enfatizando que id solicitado não foi encontrado
 
     conn
-    |> puth_flash(:info, "Topic Deleted")
+    |> put_flash(:info, "Topic Deleted")
     |> redirect(to: topic_path(conn, :index))
   end
 end
