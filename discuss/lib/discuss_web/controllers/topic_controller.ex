@@ -1,6 +1,7 @@
 defmodule DiscussWeb.TopicController do
   use DiscussWeb, :controller
 
+
 # o controller receberá todas as requisições do usuário e irá se comunicar com a model
 
   alias Discuss.Topic
@@ -28,7 +29,7 @@ defmodule DiscussWeb.TopicController do
       {:ok, _topic} ->
         conn
         |> put_flash(:info, "Topic Created")
-        |> redirect(to: topic_path(conn, :index))
+        |> redirect(to: Routes.topic_path(conn, :index))
         # muda de pag ao inserir um novo tópico/título
       {:error, changeset} ->
         render conn, "new.html", changeset: changeset
@@ -69,6 +70,6 @@ defmodule DiscussWeb.TopicController do
 
     conn
     |> put_flash(:info, "Topic Deleted")
-    |> redirect(to: topic_path(conn, :index))
+    |> redirect(to: Routes.topic_path(conn, :index))
   end
 end
