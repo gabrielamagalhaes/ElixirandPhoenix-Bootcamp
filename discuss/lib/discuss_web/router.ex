@@ -16,9 +16,16 @@ defmodule DiscussWeb.Router do
   scope "/", DiscussWeb do
     pipe_through :browser
 
-    get "/", TopicController, :index 
+    get "/", TopicController, :index
     resources "/topics", TopicController, only: [:new, :create, :edit, :update]
 
+  end
+
+  scope "/auth", Discuss do
+    pipe_through :browser
+
+    get "/:provider", AuthController, :request
+    get "/provider/callback", AuthController, :callback
   end
 
 
