@@ -1,6 +1,6 @@
 defmodule DiscussWeb.TopicController do
   use DiscussWeb, :controller
-
+  alias Discuss.Repo
 
 # o controller receberá todas as requisições do usuário e irá se comunicar com a model
 
