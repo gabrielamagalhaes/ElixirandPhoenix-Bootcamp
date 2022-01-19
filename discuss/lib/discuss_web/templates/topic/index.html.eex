@@ -10,8 +10,8 @@
                 <%= link "Delete", to: Routes.topic_path(@conn, :delete, topic), method: :delete %>
             </div>
         </li>
-    <% end %>
 </ul>
+ <% end %>
 
 <div class="fixed-action-btn">
     <%= link to: Routes.topic_path(@conn, :new), class: "btn-floating btn-large waves-effect waves-light red" do %>

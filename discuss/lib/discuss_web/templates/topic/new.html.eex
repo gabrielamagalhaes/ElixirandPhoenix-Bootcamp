@@ -5,10 +5,10 @@
         <%= error_tag f, :title %>
     </div>
 
-<% end %>
 
 <%= submit "Save Topic", class: "btn btn-primary" %>
 
+<% end %>
 
 
 <%# ele coloca o % para pode escrever qualquer código em elixir aqui neste arquivo %>
