@@ -19,6 +19,8 @@ defmodule DiscussWeb.Router do
     get "/", TopicController, :index
     resources "/topics", TopicController, only: [:new, :create, :edit, :update]
 
+    delete "/", TopicController, :topic
+    resources "/topics", TopicController, [:delete]
   end
 
   scope "/auth", Discuss do
@@ -27,7 +29,6 @@ defmodule DiscussWeb.Router do
     get "/:provider", AuthController, :request
     get "/provider/callback", AuthController, :callback
   end
-
 
   # Other scopes may use custom stacks.
   # scope "/api", DiscussWeb do
