@@ -1,9 +1,18 @@
 defmodule Discuss.Factory do
-    use ExMachina
+    use ExMachina.Ecto, repo: Discuss.Repo
 
-    def topic_params_factory do
-        %{
-            "title" => "abcdef"
+    def user_factory do
+        %Discuss.User{
+            email: "abcdefg@email.com",
+            provider: "123",
+            token: "12"
         }
     end
+
+    def topic_factory do
+        %Discuss.Topic{
+            title: "testando"
+        }
+    end
+
 end
