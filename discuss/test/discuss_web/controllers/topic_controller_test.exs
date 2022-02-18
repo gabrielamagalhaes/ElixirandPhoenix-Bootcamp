@@ -62,6 +62,17 @@ defmodule DiscussWeb.TopicControllerTest do
     end
   end
 
+  describe "delete/2 is success" do
+    setup [:create_topic]
+
+    test "delete a topic", %{conn: conn, topic: topic} do
+      topic = insert(:topic)
+      conn = delete(conn, Routes.topic_path(conn, :delete, topic))
+
+      assert redirected_to(conn) == Routes.topic_path(conn, :index)
+    end
+  end
+
   defp create_topic(_) do
     topic = topic_factory()
     %{topic: topic}
