@@ -7,7 +7,7 @@ defmodule DiscussWeb.TopicControllerTest do
   @create_attrs %{title: "testando tópico" }
   @update_attrs %{title: "testando tópico atualizado"}
 
-  describe "index/2 is success" do
+  describe "index tests" do
     test "check existing topic", %{conn: conn} do
       conn = get(conn, Routes.topic_path(conn, :index))
 
@@ -26,7 +26,7 @@ defmodule DiscussWeb.TopicControllerTest do
     end
   end
 
-  describe "create/2 is success" do
+  describe "create tests" do
     test "create returns 200", %{conn: conn} do
       conn = post(conn, Routes.topic_path(conn, :create), topic: @create_attrs)
 
@@ -37,7 +37,7 @@ defmodule DiscussWeb.TopicControllerTest do
     end
   end
 
-  describe "edit/2 is success" do
+  describe "edit tests" do
     setup [:create_topic]
 
     test "edit returns 200", %{conn: conn, topic: topic} do
@@ -48,21 +48,21 @@ defmodule DiscussWeb.TopicControllerTest do
     end
   end
 
-  describe "update/3 is success" do
+  describe "update tests" do
     setup [:create_topic]
 
     test "update returns 200", %{conn: conn, topic: topic} do
       topic = insert(:topic)
-      conn = get(conn, Routes.topic_path(conn, :edit, topic), topic: @update_attrs)
 
-      assert redirected_to(conn) == Routes.topic_path(conn, :index)
+      conn = put(conn, Routes.topic_path(conn, :update, topic), topic: @update_attrs)
+      assert redirected_to(conn) == Routes.topic_path(conn, :index, topic)
 
-      conn = get(conn, Routes.topic_path(conn, :index))
-      assert html_response(conn, 200) =~ "The topic was updated"
+      conn = get(conn, Routes.topic_path(conn, :show, topic))
+      assert html_response(conn, 302) =~ "The topic was updated"
     end
   end
 
-  describe "delete/2 is success" do
+  describe "delete tests" do
     setup [:create_topic]
 
     test "delete a topic", %{conn: conn, topic: topic} do
