@@ -6,6 +6,7 @@ defmodule DiscussWeb.TopicControllerTest do
 
   @create_attrs %{title: "testando tópico" }
   @update_attrs %{title: "testando tópico atualizado"}
+  @invalid_attrs %{title: nil}
 
   describe "index tests" do
     test "check existing topic", %{conn: conn} do
@@ -30,9 +31,13 @@ defmodule DiscussWeb.TopicControllerTest do
     test "create returns 200", %{conn: conn} do
       conn = post(conn, Routes.topic_path(conn, :create), topic: @create_attrs)
 
-      assert redirected_to(conn) == Routes.topic_path(conn, :index)
-
       conn = get(conn, Routes.topic_path(conn, :index))
+      
+      assert html_response(conn, 200) =~ "Discuss · Phoenix Framework"
+    end
+
+    test "create returns error when title is nil", %{conn: conn} do
+      conn = post(conn, Routes.topic_path(conn, :create), topic: @invalid_attrs)
       assert html_response(conn, 200) =~ "Discuss · Phoenix Framework"
     end
   end
@@ -52,13 +57,14 @@ defmodule DiscussWeb.TopicControllerTest do
     setup [:create_topic]
 
     test "update returns 200", %{conn: conn, topic: topic} do
-      topic = insert(:topic)
+      # topic = build(:topic)
 
       conn = put(conn, Routes.topic_path(conn, :update, topic), topic: @update_attrs)
+
       assert redirected_to(conn) == Routes.topic_path(conn, :index, topic)
 
-      conn = get(conn, Routes.topic_path(conn, :show, topic))
-      assert html_response(conn, 302) =~ "The topic was updated"
+      conn = get(conn, Routes.topic_path(conn, :update, topic))
+      assert html_response(conn, 200) =~ "The topic was updated"
     end
   end
 
