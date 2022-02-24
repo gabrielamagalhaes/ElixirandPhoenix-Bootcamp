@@ -54,8 +54,7 @@ defmodule DiscussWeb.TopicController do
       {:ok, _topic} ->
         conn
         |> put_flash(:info, "Topic Updated")
-
-      # |> redirect(to: topic_path(conn, :index))
+        |> redirect(to: Routes.topic_path(conn, :index))
       #  o redirect vai redicirecionar para a pag inicial, após a atualização
 
       {:error, changeset} ->
