@@ -28,11 +28,12 @@ defmodule DiscussWeb.TopicControllerTest do
   end
 
   describe "create tests" do
-    test "create returns 200", %{conn: conn} do
+    test "create a topic when data is valid", %{conn: conn} do
       conn = post(conn, Routes.topic_path(conn, :create), topic: @create_attrs)
 
+      assert redirected_to(conn) == Routes.topic_path(conn, :index)
+
       conn = get(conn, Routes.topic_path(conn, :index))
-      
       assert html_response(conn, 200) =~ "Discuss · Phoenix Framework"
     end
 
@@ -45,7 +46,7 @@ defmodule DiscussWeb.TopicControllerTest do
   describe "edit tests" do
     setup [:create_topic]
 
-    test "edit returns 200", %{conn: conn, topic: topic} do
+    test "edit a topic when topic's name is valid", %{conn: conn, topic: topic} do
       topic = insert(:topic)
 
       conn = get(conn, Routes.topic_path(conn, :edit, topic))
@@ -56,15 +57,21 @@ defmodule DiscussWeb.TopicControllerTest do
   describe "update tests" do
     setup [:create_topic]
 
-    test "update returns 200", %{conn: conn, topic: topic} do
-      # topic = build(:topic)
+    test "topic is updated when a valid data is passed", %{conn: conn, topic: topic} do
+      topic = insert(:topic)
 
       conn = put(conn, Routes.topic_path(conn, :update, topic), topic: @update_attrs)
+      assert redirected_to(conn) == Routes.topic_path(conn, :index)
 
-      assert redirected_to(conn) == Routes.topic_path(conn, :index, topic)
+      conn = get(conn, Routes.topic_path(conn, :index))
+      assert html_response(conn, 200) =~ "Discuss · Phoenix Framework"
+    end
 
-      conn = get(conn, Routes.topic_path(conn, :update, topic))
-      assert html_response(conn, 200) =~ "The topic was updated"
+    test "returns error when topic's value is nil", %{conn: conn, topic: topic} do
+      topic = insert(:topic)
+
+      conn = put(conn, Routes.topic_path(conn, :update, topic), topic: @invalid_attrs)
+      assert html_response(conn, 200) =~ "Discuss · Phoenix Framework"
     end
   end
 
