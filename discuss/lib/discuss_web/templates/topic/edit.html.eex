@@ -1,5 +1,4 @@
 <%= form_for @changeset, Routes.topic_path(@conn, :update, @topic), fn f-> %>
-<%# conseguir arrumar a rota!!!! %>
     <div class="form-group">
         <%= text_input f, :title, placeholder: "Title", class: "form-control" %>
         <%= error_tag f, :title %>
