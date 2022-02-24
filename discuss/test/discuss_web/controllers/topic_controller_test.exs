@@ -2,7 +2,6 @@ defmodule DiscussWeb.TopicControllerTest do
   use DiscussWeb.ConnCase
 
   import Discuss.Factory
-  alias Discuss.Repo
 
   @create_attrs %{title: "testando tópico" }
   @update_attrs %{title: "testando tópico atualizado"}
@@ -46,7 +45,7 @@ defmodule DiscussWeb.TopicControllerTest do
   describe "edit tests" do
     setup [:create_topic]
 
-    test "edit a topic when topic's name is valid", %{conn: conn, topic: topic} do
+    test "edit a topic when topic's name is valid", %{conn: conn} do
       topic = insert(:topic)
 
       conn = get(conn, Routes.topic_path(conn, :edit, topic))
@@ -57,7 +56,7 @@ defmodule DiscussWeb.TopicControllerTest do
   describe "update tests" do
     setup [:create_topic]
 
-    test "topic is updated when a valid data is passed", %{conn: conn, topic: topic} do
+    test "topic is updated when a valid data is passed", %{conn: conn} do
       topic = insert(:topic)
 
       conn = put(conn, Routes.topic_path(conn, :update, topic), topic: @update_attrs)
@@ -67,7 +66,7 @@ defmodule DiscussWeb.TopicControllerTest do
       assert html_response(conn, 200) =~ "Discuss · Phoenix Framework"
     end
 
-    test "returns error when topic's value is nil", %{conn: conn, topic: topic} do
+    test "returns error when topic's value is nil", %{conn: conn} do
       topic = insert(:topic)
 
       conn = put(conn, Routes.topic_path(conn, :update, topic), topic: @invalid_attrs)
@@ -78,7 +77,7 @@ defmodule DiscussWeb.TopicControllerTest do
   describe "delete tests" do
     setup [:create_topic]
 
-    test "delete a topic", %{conn: conn, topic: topic} do
+    test "delete a topic", %{conn: conn} do
       topic = insert(:topic)
       conn = delete(conn, Routes.topic_path(conn, :delete, topic))
 
