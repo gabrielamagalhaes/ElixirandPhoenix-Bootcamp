@@ -7,7 +7,7 @@ defmodule DiscussWeb.TopicControllerTest do
   @update_attrs %{title: "testando tópico atualizado"}
   @invalid_attrs %{title: nil}
 
-  describe "index tests" do
+  describe "Successful index tests" do
     test "check existing topic", %{conn: conn} do
       conn = get(conn, Routes.topic_path(conn, :index))
 
@@ -26,7 +26,7 @@ defmodule DiscussWeb.TopicControllerTest do
     end
   end
 
-  describe "create tests" do
+  describe "Successful create tests" do
     test "create a topic when data is valid", %{conn: conn} do
       conn = post(conn, Routes.topic_path(conn, :create), topic: @create_attrs)
 
@@ -42,7 +42,7 @@ defmodule DiscussWeb.TopicControllerTest do
     end
   end
 
-  describe "edit tests" do
+  describe "Successful edit tests" do
     setup [:create_topic]
 
     test "edit a topic when topic's name is valid", %{conn: conn} do
@@ -53,7 +53,7 @@ defmodule DiscussWeb.TopicControllerTest do
     end
   end
 
-  describe "update tests" do
+  describe "Successful update tests" do
     setup [:create_topic]
 
     test "topic is updated when a valid data is passed", %{conn: conn} do
@@ -74,7 +74,7 @@ defmodule DiscussWeb.TopicControllerTest do
     end
   end
 
-  describe "delete tests" do
+  describe "Successful delete tests" do
     setup [:create_topic]
 
     test "delete a topic", %{conn: conn} do
