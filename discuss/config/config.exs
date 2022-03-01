@@ -35,6 +35,6 @@ config :ueberauth, Ueberauth,
     github: { Ueberauth.Strategy.Github, []}
   ]
 
-  # config :ueberauth, Ueberauth.Strategy.Github.Oauth,
-    # client_id: adicionar aqui um código obtido no github
-    # client_secret:
+  config :ueberauth, Ueberauth.Strategy.Github.OAuth,
+    client_id: "1087d94e86a2bdb0a669",
+    client_secret: "addf16521ad54a3171b9ab17d0675fa16c54f3ee"
