@@ -61,13 +61,6 @@ defmodule DiscussWeb.TopicControllerTest do
       conn = get(conn, Routes.topic_path(conn, :index))
       assert html_response(conn, 200) =~ "Discuss · Phoenix Framework"
     end
-
-    test "returns error when topic's value is nil", %{conn: conn} do
-      topic = insert(:topic)
-
-      conn = put(conn, Routes.topic_path(conn, :update, topic), topic: @invalid_attrs)
-      assert html_response(conn, 200) =~ "Discuss · Phoenix Framework"
-    end
   end
 
   describe "Successful delete tests" do
@@ -81,7 +74,7 @@ defmodule DiscussWeb.TopicControllerTest do
     end
   end
 
-  describe "Failure create test" do
+  describe "Failure create tests" do
     test "create returns error when title is smaller than 3 characters", %{conn: conn} do
       conn = post(conn, Routes.topic_path(conn, :create), topic: @invalid_attrs1)
       assert html_response(conn, 200) =~ "should be at least 3 character(s)"
@@ -93,7 +86,23 @@ defmodule DiscussWeb.TopicControllerTest do
     end
   end
 
+  describe "Failure update tests" do
+    setup [:create_topic]
 
+    test "update returns error when the title is smaller than 3 characters", %{conn: conn} do
+      topic = insert(:topic)
+
+      conn = put(conn, Routes.topic_path(conn, :update, topic), topic: @invalid_attrs1)
+      assert html_response(conn, 200) =~ "should be at least 3 character(s)"
+    end
+
+    test "update returns error when the title is bigger than 30 characters", %{conn: conn} do
+      topic = insert(:topic)
+
+      conn = put(conn, Routes.topic_path(conn, :update, topic), topic: @invalid_attrs2)
+      assert html_response(conn, 200) =~ "should be at most 30 character(s)"
+    end
+  end
 
   defp create_topic(_) do
     topic = topic_factory()
