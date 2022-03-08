@@ -14,6 +14,7 @@ defmodule Discuss.Topic do
     struct
     |> cast(params, [:title])
     |> validate_required([:title])
+    |> validate_length(:title, min: 3, max: 30)
   end
 
   # struct representa um registro no banco de dados (o que é-atual)
